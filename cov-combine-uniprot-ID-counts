@@ -1,0 +1,55 @@
+#!/usr/bin/env python
+
+import argparse
+import pandas as pd
+import sys
+import os
+
+
+# example input file format (see https://hackmd.io/@astrobiomike/cov-combine-uniprot-ID-counts for example use)
+# 1_SRR10903401     uniprot
+# 11500             -
+# 3403              P0C6V9
+
+parser = argparse.ArgumentParser(description='This is an ad hoc program for use with our CoV-IRT group. It expects as input multiple tab-delimited files, \
+                                              where the first column is counts with a unique sample identifier as a header, \
+                                              and the second column UniProt IDs, with a header of "uniprot". See top of script or \
+                                              https://hackmd.io/@astrobiomike/bit-cov-combine-uniprot-ID-counts for example. For \
+                                              version info, run `cov-version`.')
+
+
+required = parser.add_argument_group('required arguments')
+
+required.add_argument("-i", "--input_files", nargs="+", type=str, help="space-delimited list of input files", action="store", dest="input_files", required=True)
+parser.add_argument("-o", "--output_file", help='Output combined UniProt counts (default: "combined-UniProt-counts.tsv")', action="store", dest="output_file", default="combined-UniProt-counts.tsv")
+
+if len(sys.argv)==1:
+    parser.print_help(sys.stderr)
+    sys.exit(0)
+
+args = parser.parse_args()
+
+# starting building table of combined counts
+building_tab = pd.DataFrame(columns = ["uniprot"])
+
+## working on each file
+for file in args.input_files:
+
+    # reading current file into pandas dataframe
+    curr_tab = pd.read_csv(file, sep="\t")
+
+    # combining with building table
+    building_tab = building_tab.merge(curr_tab, on = "uniprot", how = "outer")
+
+## replacing NAs with 0s
+building_tab = building_tab.fillna(0)
+
+# re-ordering columns so uniprot ID up front
+building_tab = building_tab[ ['uniprot'] + [ col for col in building_tab.columns if col != 'uniprot' ] ]
+
+# changing the "-" to be "Not annotated"
+building_tab.loc[building_tab.uniprot == '-', 'uniprot'] = "Not annotated"
+
+# writing out
+with open(args.output_file, "w") as out:
+    out.write(building_tab.to_csv(index=False, sep="\t", float_format = "%.0f"))
