@@ -14,7 +14,7 @@ import os
 parser = argparse.ArgumentParser(description='This is an ad hoc program for use with our CoV-IRT group. It expects as input multiple tab-delimited files, \
                                               where the first column is counts with a unique sample identifier as a header, \
                                               and the second column UniProt IDs, with a header of "uniprot". See top of script or \
-                                              https://hackmd.io/@astrobiomike/bit-cov-combine-uniprot-ID-counts for example. For \
+                                              https://hackmd.io/@astrobiomike/cov-combine-uniprot-ID-counts for example. For \
                                               version info, run `cov-version`.')
 
 
