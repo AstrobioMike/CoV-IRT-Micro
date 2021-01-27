@@ -5,7 +5,7 @@ These are a collection of scripts utilized by the [CoV-IRT](https://www.cov-irt.
 ## Conda install
 
 ```bash
-conda create -n covirt-micro -c conda-forge -c bioconda -c defaults -c astrobiomike covirt-micro
+conda create -y -n covirt-micro -c conda-forge -c bioconda -c defaults -c astrobiomike covirt-micro
 conda activate covirt-micro
 ```
 
