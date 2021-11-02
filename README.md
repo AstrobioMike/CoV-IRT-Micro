@@ -1,6 +1,6 @@
 # CoVIRT-Micro tools
 
-These are a collection of scripts utilized by the [CoV-IRT](https://www.cov-irt.org/) Microbial subgroup in [their 2021 publication](https://blog.hubspot.com/blog/tabid/6307/bid/33766/10-clever-website-error-messages-from-creative-companies.aspx). Our OSF site for this project can be found [here](https://osf.io/7nrd3/).
+These are a collection of scripts utilized by the [CoV-IRT](https://www.cov-irt.org/) Microbial subgroup in our "Analysis of Bronchoalveolar Lavage Fluid Metatranscriptomes Among Patients with COVID-19 Disease" manuscript. Our OSF site for this project can be found [here](https://osf.io/7nrd3/).
 
 ## Conda install
 
